@@ -5,5 +5,7 @@ namespace Core.Interfaces
     public interface ISpecification<T>
     {
         Expression<Func<T, bool>>? Criteria { get; } // where expression
+        Expression<Func<T, object>>? OrderBy { get; }
+        Expression<Func<T, object>>? OrderByDescending { get; }
     }
 }
