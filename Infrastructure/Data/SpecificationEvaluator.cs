@@ -1,5 +1,6 @@
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.EntityFrameworkCore.Diagnostics.Internal;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace Infrastructure.Data
@@ -26,6 +27,11 @@ namespace Infrastructure.Data
             if(spec.IsDistinct)
             {
                 query = query.Distinct();
+            }
+
+            if(spec.IsPagingEnabled)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
             }
 
             return query;
@@ -56,9 +62,13 @@ namespace Infrastructure.Data
             }   
 
             if(spec.IsDistinct)
-            
             {
                 seletQuery = seletQuery?.Distinct();
+            }
+
+            if(spec.IsPagingEnabled)
+            {
+                seletQuery = seletQuery?.Skip(spec.Skip).Take(spec.Take);
             }
 
             return seletQuery ?? query.Cast<TResult>();
