@@ -23,6 +23,11 @@ namespace Infrastructure.Data
                 query = query.OrderByDescending(spec.OrderByDescending);
             }
 
+            if(spec.IsDistinct)
+            {
+                query = query.Distinct();
+            }
+
             return query;
         }
 
@@ -48,6 +53,12 @@ namespace Infrastructure.Data
             if(spec.Select != null)
             {
                 seletQuery = query.Select(spec.Select);
+            }   
+
+            if(spec.IsDistinct)
+            
+            {
+                seletQuery = seletQuery?.Distinct();
             }
 
             return seletQuery ?? query.Cast<TResult>();
