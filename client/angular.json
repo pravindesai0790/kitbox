@@ -15,7 +15,8 @@
           "skipTests": true
         },
         "@schematics/angular:service": {
-          "type": "service"
+          "type": "service",
+          "skipTests": true
         }
       },
       "root": "",
