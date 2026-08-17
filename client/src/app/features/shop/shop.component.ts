@@ -3,7 +3,7 @@ import { ShopService } from '../../core/services/shop.service';
 import { Product } from '../../shared/models/product';
 import { ProductItemComponent } from "./product-item/product-item.component";
 import { MatDialog } from '@angular/material/dialog';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { FiltersDialogComponent } from './filters-dialog/filters-dialog.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
@@ -11,6 +11,7 @@ import { MatListOption, MatSelectionList, MatSelectionListChange } from '@angula
 import { ShopParams } from '../../shared/models/shopParams';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Pagination } from '../../shared/models/pagination';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-shop',
@@ -22,7 +23,9 @@ import { Pagination } from '../../shared/models/pagination';
     MatSelectionList,
     MatListOption,
     MatMenuTrigger,
-    MatPaginator
+    MatPaginator,
+    FormsModule,
+    MatIconButton
 ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.css',
@@ -56,6 +59,11 @@ pageSizeOptions = [5,10,15,20];
       next: response => this.products = response,
       error: error => console.log(error)
     })
+  }
+
+  onSearchChange() {
+    this.shopParams.pageNumber = 1;
+    this.getProducts();
   }
 
   handlePageEvent(event: PageEvent) {
