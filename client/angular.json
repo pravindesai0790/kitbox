@@ -17,6 +17,9 @@
         "@schematics/angular:service": {
           "type": "service",
           "skipTests": true
+        },"@schematics/angular:interceptor": {
+          "typeSeparator": ".",
+          "skipTests": true
         }
       },
       "root": "",
