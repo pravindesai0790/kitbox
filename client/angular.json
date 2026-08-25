@@ -21,6 +21,10 @@
         "@schematics/angular:interceptor": {
           "typeSeparator": ".",
           "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "typeSeparator": ".",
+          "skipTests": true
         }
       },
       "root": "",

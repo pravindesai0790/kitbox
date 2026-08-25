@@ -5,7 +5,7 @@ import { MatCard } from '@angular/material/card';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel } from '@angular/material/select';
 import { AccountService } from '../../../core/services/account.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -24,17 +24,24 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
   private accountService = inject(AccountService);
   private roter = inject(Router);
+  private activateRoute = inject(ActivatedRoute);
+  returnUrl = '/shop';
 
   loginFrom = this.fb.group({
     email: [''],
     password: ['']
   });
 
+  constructor() {
+    const url = this.activateRoute.snapshot.queryParams['returnUrl'];
+    if (url) this.returnUrl = url;
+  }
+
   onSubmit() {
     this.accountService.login(this.loginFrom.value).subscribe({
       next: () => {
         this.accountService.getUserInfo().subscribe();
-        this.roter.navigateByUrl('/shop');
+        this.roter.navigateByUrl(this.returnUrl);
       }
     })
   }
